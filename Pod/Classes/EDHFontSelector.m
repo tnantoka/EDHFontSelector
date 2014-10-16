@@ -8,12 +8,16 @@
 
 #import "EDHFontSelector.h"
 
-#import <objc/runtime.h>
+#import "EDHUtility.h"
 
-static NSString * const kFontNameKey = @"kFontNameKey";
-static NSString * const kFontSizeKey = @"kFontSizeKey";
-static NSString * const kTextColorKey = @"kTextColorKey";
-static NSString * const kBackgroundColorKey = @"kBackgroundColorKey";
+//#import <objc/runtime.h>
+
+NSString * const EDHFontSelectorPodName = @"EDHFontSelector";
+
+#define kFontNameKey [NSString stringWithFormat:@"%@.%@", EDHFontSelectorPodName, @"kFontNameKey"]
+#define kFontSizeKey [NSString stringWithFormat:@"%@.%@", EDHFontSelectorPodName, @"kFontSizeKey"]
+#define kTextColorKey [NSString stringWithFormat:@"%@.%@", EDHFontSelectorPodName, @"kTextColorKey"]
+#define kBackgroundColorKey [NSString stringWithFormat:@"%@.%@", EDHFontSelectorPodName, @"kBackgroundColorKey"]
 
 @implementation EDHFontSelector
 
@@ -33,7 +37,7 @@ static EDHFontSelector *sharedInstance = nil;
     if (self = [super init]) {
         [self registarDefaults];
         
-        self.previewText = NSLocalizedString(@"ABCDEFGHIJKLM NOPQRSTUVWXYZ abcdefghijklm nopqrstuvwxyz 1234567890", nil);
+        self.previewText = [EDHUtility localizedString:@"ABCDEFGHIJKLM NOPQRSTUVWXYZ abcdefghijklm nopqrstuvwxyz 1234567890" withScope:EDHFontSelectorPodName];
     }
     return self;
 }
@@ -54,59 +58,51 @@ static EDHFontSelector *sharedInstance = nil;
     textView.font = [self font];
 }
 
-- (NSString *)identifier {
-    return @"com.bornneet.EDHFontSelector";
-}
-
-- (NSString *)keyWithType:(NSString *)type {
-    return [NSString stringWithFormat:@"%@.%@", [self identifier], type];
-}
-
 - (UIFont *)font {
     return [UIFont fontWithName:[self fontName] size:[self fontSize]];
 }
 
 - (NSString *)fontName {
-    return [[NSUserDefaults standardUserDefaults] stringForKey:[self keyWithType:kFontNameKey]];
+    return [[NSUserDefaults standardUserDefaults] stringForKey:kFontNameKey];
 }
 
 - (CGFloat)fontSize {
-    return [[NSUserDefaults standardUserDefaults] floatForKey:[self keyWithType:kFontSizeKey]];
+    return [[NSUserDefaults standardUserDefaults] floatForKey:kFontSizeKey];
 }
 
 - (UIColor *)textColor {
-    return [NSKeyedUnarchiver unarchiveObjectWithData:[[NSUserDefaults standardUserDefaults] objectForKey:[self keyWithType:kTextColorKey]]];
+    return [NSKeyedUnarchiver unarchiveObjectWithData:[[NSUserDefaults standardUserDefaults] objectForKey:kTextColorKey]];
 }
 
 - (UIColor *)backgroundColor {
-    return [NSKeyedUnarchiver unarchiveObjectWithData:[[NSUserDefaults standardUserDefaults] objectForKey:[self keyWithType:kBackgroundColorKey]]];
+    return [NSKeyedUnarchiver unarchiveObjectWithData:[[NSUserDefaults standardUserDefaults] objectForKey:kBackgroundColorKey]];
 }
 
 - (void)setFontName:(NSString *)name {
-    [[NSUserDefaults standardUserDefaults] setObject:name forKey:[self keyWithType:kFontNameKey]];
+    [[NSUserDefaults standardUserDefaults] setObject:name forKey:kFontNameKey];
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
 - (void)setFontSize:(CGFloat)size {
-    [[NSUserDefaults standardUserDefaults] setFloat:size forKey:[self keyWithType:kFontSizeKey]];
+    [[NSUserDefaults standardUserDefaults] setFloat:size forKey:kFontSizeKey];
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
 - (void)setTextColor:(UIColor *)color {
-    [[NSUserDefaults standardUserDefaults] setObject:[NSKeyedArchiver archivedDataWithRootObject:color] forKey:[self keyWithType:kTextColorKey]];
+    [[NSUserDefaults standardUserDefaults] setObject:[NSKeyedArchiver archivedDataWithRootObject:color] forKey:kTextColorKey];
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
 - (void)setBackgroundColor:(UIColor *)color {
-    [[NSUserDefaults standardUserDefaults] setObject:[NSKeyedArchiver archivedDataWithRootObject:color] forKey:[self keyWithType:kBackgroundColorKey]];
+    [[NSUserDefaults standardUserDefaults] setObject:[NSKeyedArchiver archivedDataWithRootObject:color] forKey:kBackgroundColorKey];
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
 - (void)reset {
-    [[NSUserDefaults standardUserDefaults] removeObjectForKey:[self keyWithType:kFontNameKey]];
-    [[NSUserDefaults standardUserDefaults] removeObjectForKey:[self keyWithType:kFontSizeKey]];
-    [[NSUserDefaults standardUserDefaults] removeObjectForKey:[self keyWithType:kTextColorKey]];
-    [[NSUserDefaults standardUserDefaults] removeObjectForKey:[self keyWithType:kBackgroundColorKey]];
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:kFontNameKey];
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:kFontSizeKey];
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:kTextColorKey];
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:kBackgroundColorKey];
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
@@ -123,59 +119,59 @@ static EDHFontSelector *sharedInstance = nil;
 
     NSMutableArray *colors = @[
              @{
-                 @"name" : NSLocalizedString(@"Black", nil),
+                 @"name" : [EDHUtility localizedString:@"Black" withScope:EDHFontSelectorPodName],
                  @"color" : [UIColor blackColor],
                  },
              @{
-                 @"name" : NSLocalizedString(@"Dark gray", nil),
+                 @"name" : [EDHUtility localizedString:@"Dark gray" withScope:EDHFontSelectorPodName],
                  @"color" : [UIColor darkGrayColor],
                  },
              @{
-                 @"name" : NSLocalizedString(@"Light gray", nil),
+                 @"name" : [EDHUtility localizedString:@"Light gray" withScope:EDHFontSelectorPodName],
                  @"color" : [UIColor lightGrayColor],
                  },
              @{
-                 @"name" : NSLocalizedString(@"White", nil),
+                 @"name" : [EDHUtility localizedString:@"White" withScope:EDHFontSelectorPodName],
                  @"color" : [UIColor whiteColor],
                  },
              @{
-                 @"name" : NSLocalizedString(@"Gray", nil),
+                 @"name" : [EDHUtility localizedString:@"Gray" withScope:EDHFontSelectorPodName],
                  @"color" : [UIColor grayColor],
                  },
              @{
-                 @"name" : NSLocalizedString(@"Red", nil),
+                 @"name" : [EDHUtility localizedString:@"Red" withScope:EDHFontSelectorPodName],
                  @"color" : [UIColor redColor],
                  },
              @{
-                 @"name" : NSLocalizedString(@"Green", nil),
+                 @"name" : [EDHUtility localizedString:@"Green" withScope:EDHFontSelectorPodName],
                  @"color" : [UIColor greenColor],
                  },
              @{
-                 @"name" : NSLocalizedString(@"Blue", nil),
+                 @"name" : [EDHUtility localizedString:@"Blue" withScope:EDHFontSelectorPodName],
                  @"color" : [UIColor blueColor],
                  },
              @{
-                 @"name" : NSLocalizedString(@"Cyan", nil),
+                 @"name" : [EDHUtility localizedString:@"Cyan" withScope:EDHFontSelectorPodName],
                  @"color" : [UIColor cyanColor],
                  },
              @{
-                 @"name" : NSLocalizedString(@"Yellow", nil),
+                 @"name" : [EDHUtility localizedString:@"Yellow" withScope:EDHFontSelectorPodName],
                  @"color" : [UIColor yellowColor],
                  },
              @{
-                 @"name" : NSLocalizedString(@"Magenta", nil),
+                 @"name" : [EDHUtility localizedString:@"Magenta" withScope:EDHFontSelectorPodName],
                  @"color" : [UIColor magentaColor],
                  },
              @{
-                 @"name" : NSLocalizedString(@"OrangeColor", nil),
+                 @"name" : [EDHUtility localizedString:@"Orange" withScope:EDHFontSelectorPodName],
                  @"color" : [UIColor orangeColor],
                  },
              @{
-                 @"name" : NSLocalizedString(@"PurpleColor", nil),
+                 @"name" : [EDHUtility localizedString:@"Purple" withScope:EDHFontSelectorPodName],
                  @"color" : [UIColor purpleColor],
                  },
              @{
-                 @"name" : NSLocalizedString(@"Brown", nil),
+                 @"name" : [EDHUtility localizedString:@"Brown" withScope:EDHFontSelectorPodName],
                  @"color" : [UIColor brownColor],
                  },
              ].mutableCopy;
@@ -223,10 +219,10 @@ static EDHFontSelector *sharedInstance = nil;
 
 - (void)registarDefaults {    
     NSMutableDictionary *defaults = @{}.mutableCopy;
-    [defaults setObject:@"HelveticaNeue" forKey:[self keyWithType:kFontNameKey]];
-    [defaults setObject:@(14.0f) forKey:[self keyWithType:kFontSizeKey]];
-    [defaults setObject:[NSKeyedArchiver archivedDataWithRootObject:[UIColor blackColor]] forKey:[self keyWithType:kTextColorKey]];
-    [defaults setObject:[NSKeyedArchiver archivedDataWithRootObject:[UIColor whiteColor]] forKey:[self keyWithType:kBackgroundColorKey]];
+    [defaults setObject:@"HelveticaNeue" forKey:kFontNameKey];
+    [defaults setObject:@(14.0f) forKey:kFontSizeKey];
+    [defaults setObject:[NSKeyedArchiver archivedDataWithRootObject:[UIColor blackColor]] forKey:kTextColorKey];
+    [defaults setObject:[NSKeyedArchiver archivedDataWithRootObject:[UIColor whiteColor]] forKey:kBackgroundColorKey];
     [[NSUserDefaults standardUserDefaults] registerDefaults:defaults];
 }
 

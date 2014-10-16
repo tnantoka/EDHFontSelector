@@ -12,6 +12,7 @@
 #import "EDHFontNameViewController.h"
 #import "EDHFontSizeViewController.h"
 #import "EDHFontColorViewController.h"
+#import "EDHUtility.h"
 
 static NSString * const reuseIdentifier = @"reuseIdentifier";
 
@@ -25,7 +26,7 @@ static NSString * const reuseIdentifier = @"reuseIdentifier";
 
 - (id)init {
     if (self = [super initWithStyle:UITableViewStyleGrouped]) {
-        self.title = NSLocalizedString(@"Font", nil);
+        self.title = [EDHUtility localizedString:@"Font" withScope:EDHFontSelectorPodName];
     }
     return self;
 }
@@ -72,9 +73,9 @@ static NSString * const reuseIdentifier = @"reuseIdentifier";
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
     if (section == 0) {
-        return NSLocalizedString(@"Settings", nil);
+        return [EDHUtility localizedString:@"Settings" withScope:EDHFontSelectorPodName];
     } else if (section == 1) {
-        return NSLocalizedString(@"Preview", nil);
+        return [EDHUtility localizedString:@"Preview" withScope:EDHFontSelectorPodName];
     } else {
         return nil;
     }
@@ -147,22 +148,22 @@ static NSString * const reuseIdentifier = @"reuseIdentifier";
     self.items = @[
                    @[
                        @{
-                           @"title" : NSLocalizedString(@"Font name", nil),
+                           @"title" : [EDHUtility localizedString:@"Font name" withScope:EDHFontSelectorPodName],
                            @"value" : [[EDHFontSelector sharedSelector] fontName],
                            @"controller" : [[EDHFontNameViewController alloc] init],
                            },
                        @{
-                           @"title" : NSLocalizedString(@"Font size", nil),
+                           @"title" : [EDHUtility localizedString:@"Font size" withScope:EDHFontSelectorPodName],
                            @"value" : [@([[EDHFontSelector sharedSelector] fontSize]) stringValue],
                            @"controller" : [[EDHFontSizeViewController alloc] init],
                            },
                        @{
-                           @"title" : NSLocalizedString(@"Text color", nil),
+                           @"title" : [EDHUtility localizedString:@"Text color" withScope:EDHFontSelectorPodName],
                            @"value" : [[EDHFontSelector sharedSelector] nameForColor:[[EDHFontSelector sharedSelector] textColor]],
                            @"controller" : [[EDHFontColorViewController alloc] initWithType:EDHFontColorViewControllerTypeText],
                            },
                        @{
-                           @"title" : NSLocalizedString(@"Background color", nil),
+                           @"title" : [EDHUtility localizedString:@"Background color" withScope:EDHFontSelectorPodName],
                            @"value" : [[EDHFontSelector sharedSelector] nameForColor:[[EDHFontSelector sharedSelector] backgroundColor]],
                            @"controller" : [[EDHFontColorViewController alloc] initWithType:EDHFontColorViewControllerTypeBackground],
                            },
@@ -174,7 +175,7 @@ static NSString * const reuseIdentifier = @"reuseIdentifier";
                        ],
                    @[
                        @{
-                           @"title" : NSLocalizedString(@"Reset", nil),
+                           @"title" : [EDHUtility localizedString:@"Reset" withScope:EDHFontSelectorPodName],
                            },
                        ],
                    ];

@@ -10,6 +10,8 @@
 
 #import "EDHFontSettingsViewController.h"
 
+extern NSString * const EDHFontSelectorPodName;
+
 @interface EDHFontSelector : NSObject
 
 @property (nonatomic) NSString *previewText;
@@ -37,7 +39,5 @@
 
 - (NSString *)nameForColor:(UIColor *)color;
 - (NSArray *)colors;
-
-- (NSString *)identifier;
 
 @end
