@@ -16,7 +16,7 @@ EDHFontSelector is available through [CocoaPods](http://cocoapods.org).
 ## Demo
 
 ```
-pod try EDHFontSelector
+$ pod try EDHFontSelector
 ```
 
 ## Installation
@@ -42,7 +42,7 @@ See also [Example](/Example).
 
 ## Author
 
-[tnantoka](https://twitter.com/tnantoka)
+[@tnantoka](https://twitter.com/tnantoka)
 
 ## License
 
