@@ -132,11 +132,13 @@ static const NSInteger kAccessoryLabelTag = 1;
         [accessoryLabel sizeToFit];
         
         CGRect frame = accessoryLabel.frame;
+        CGFloat textLabelWidth = CGRectGetWidth(cell.bounds) / 2.0f;
         frame.origin.y = 12.0f;
-        frame.size.width = CGRectGetWidth(cell.bounds) - 32.0f;
+        frame.size.width = textLabelWidth - 32.0f;
+        frame.origin.x = textLabelWidth;
         accessoryLabel.frame = frame;
         accessoryLabel.textAlignment = NSTextAlignmentRight;
-        
+
         [cell.contentView addSubview:accessoryLabel];
         
         cell.selectionStyle = UITableViewCellSelectionStyleDefault;
@@ -171,8 +173,7 @@ static const NSInteger kAccessoryLabelTag = 1;
 }
 
 - (void)initItems {
-    [[EDHFontSelector sharedSelector] colors];
-    self.items = @[
+    NSMutableArray *items = @[
                    @[
                        @{
                            @"title" : [EDHUtility localizedString:@"Font name" withScope:EDHFontSelectorPodName],
@@ -184,17 +185,7 @@ static const NSInteger kAccessoryLabelTag = 1;
                            @"value" : [@([[EDHFontSelector sharedSelector] fontSize]) stringValue],
                            @"controller" : [[EDHFontSizeViewController alloc] init],
                            },
-                       @{
-                           @"title" : [EDHUtility localizedString:@"Text color" withScope:EDHFontSelectorPodName],
-                           @"value" : [[EDHFontSelector sharedSelector] nameForColor:[[EDHFontSelector sharedSelector] textColor]],
-                           @"controller" : [[EDHFontColorViewController alloc] initWithType:EDHFontColorViewControllerTypeText],
-                           },
-                       @{
-                           @"title" : [EDHUtility localizedString:@"Background color" withScope:EDHFontSelectorPodName],
-                           @"value" : [[EDHFontSelector sharedSelector] nameForColor:[[EDHFontSelector sharedSelector] backgroundColor]],
-                           @"controller" : [[EDHFontColorViewController alloc] initWithType:EDHFontColorViewControllerTypeBackground],
-                           },
-                       ],
+                       ].mutableCopy,
                    @[
                        @{
                            @"title" : [EDHFontSelector sharedSelector].previewText,
@@ -205,7 +196,25 @@ static const NSInteger kAccessoryLabelTag = 1;
                            @"title" : [EDHUtility localizedString:@"Reset" withScope:EDHFontSelectorPodName],
                            },
                        ],
-                   ];
+                   ].mutableCopy;
+    
+    if ([EDHFontSelector sharedSelector].colorEabled) {
+        NSMutableArray *section = items[0];
+        [section addObjectsFromArray:@[
+                                       @{
+                                           @"title" : [EDHUtility localizedString:@"Text color" withScope:EDHFontSelectorPodName],
+                                           @"value" : [[EDHFontSelector sharedSelector] nameForColor:[[EDHFontSelector sharedSelector] textColor]],
+                                           @"controller" : [[EDHFontColorViewController alloc] initWithType:EDHFontColorViewControllerTypeText],
+                                           },
+                                       @{
+                                           @"title" : [EDHUtility localizedString:@"Background color" withScope:EDHFontSelectorPodName],
+                                           @"value" : [[EDHFontSelector sharedSelector] nameForColor:[[EDHFontSelector sharedSelector] backgroundColor]],
+                                           @"controller" : [[EDHFontColorViewController alloc] initWithType:EDHFontColorViewControllerTypeBackground],
+                                           },
+                                       ]];
+    }
+    
+    self.items = items;
 }
 
 - (void)updateAllCells {

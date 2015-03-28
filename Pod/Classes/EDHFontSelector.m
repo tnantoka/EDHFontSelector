@@ -36,8 +36,8 @@ static EDHFontSelector *sharedInstance = nil;
 - (id)init {
     if (self = [super init]) {
         self.previewText = [EDHUtility localizedString:@"ABCDEFGHIJKLM NOPQRSTUVWXYZ abcdefghijklm nopqrstuvwxyz 1234567890" withScope:EDHFontSelectorPodName];
-        
         self.defaultFontName = @"HelveticaNeue";
+        self.colorEabled = YES;
 
         [self registarDefaults];
     }
@@ -55,9 +55,11 @@ static EDHFontSelector *sharedInstance = nil;
 }
 
 - (void)applyToTextView:(UITextView *)textView {
-    textView.textColor = [self textColor];
-    textView.backgroundColor = [self backgroundColor];
     textView.font = [self font];
+    if (self.colorEabled) {
+        textView.textColor = [self textColor];
+        textView.backgroundColor = [self backgroundColor];        
+    }
 }
 
 - (UIFont *)font {
@@ -114,7 +116,7 @@ static EDHFontSelector *sharedInstance = nil;
             return c[@"name"];
         }
     }
-    return @"";
+    return @"Custom";
 }
 
 - (NSArray *)colors {

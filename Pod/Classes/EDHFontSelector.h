@@ -14,9 +14,9 @@ extern NSString * const EDHFontSelectorPodName;
 
 @interface EDHFontSelector : NSObject
 
-@property (nonatomic) NSString *previewText;
-
-@property (nonatomic) NSString *defaultFontName;
+@property (nonatomic, copy) NSString *previewText;
+@property (nonatomic, copy) NSString *defaultFontName;
+@property (nonatomic) BOOL colorEabled;
 
 + (instancetype)sharedSelector;
 

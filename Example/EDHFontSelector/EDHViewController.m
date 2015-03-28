@@ -30,6 +30,8 @@
     self.textView = [[UITextView alloc] initWithFrame:self.view.bounds];
     self.textView.text = @"EDHFontSelector";
     [self.view addSubview:self.textView];
+    
+    [EDHFontSelector sharedSelector].colorEabled = YES;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
