@@ -16,6 +16,8 @@ extern NSString * const EDHFontSelectorPodName;
 
 @property (nonatomic) NSString *previewText;
 
+@property (nonatomic) NSString *defaultFontName;
+
 + (instancetype)sharedSelector;
 
 - (UINavigationController *)settingsNavigationController;

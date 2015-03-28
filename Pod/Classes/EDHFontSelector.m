@@ -35,9 +35,11 @@ static EDHFontSelector *sharedInstance = nil;
 
 - (id)init {
     if (self = [super init]) {
-        [self registarDefaults];
-        
         self.previewText = [EDHUtility localizedString:@"ABCDEFGHIJKLM NOPQRSTUVWXYZ abcdefghijklm nopqrstuvwxyz 1234567890" withScope:EDHFontSelectorPodName];
+        
+        self.defaultFontName = @"HelveticaNeue";
+
+        [self registarDefaults];
     }
     return self;
 }
@@ -219,10 +221,12 @@ static EDHFontSelector *sharedInstance = nil;
 
 - (void)registarDefaults {    
     NSMutableDictionary *defaults = @{}.mutableCopy;
-    [defaults setObject:@"HelveticaNeue" forKey:kFontNameKey];
+
+    [defaults setObject:self.defaultFontName forKey:kFontNameKey];
     [defaults setObject:@(14.0f) forKey:kFontSizeKey];
     [defaults setObject:[NSKeyedArchiver archivedDataWithRootObject:[UIColor blackColor]] forKey:kTextColorKey];
     [defaults setObject:[NSKeyedArchiver archivedDataWithRootObject:[UIColor whiteColor]] forKey:kBackgroundColorKey];
+    
     [[NSUserDefaults standardUserDefaults] registerDefaults:defaults];
 }
 

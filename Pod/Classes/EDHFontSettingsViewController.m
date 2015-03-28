@@ -16,6 +16,8 @@
 
 static NSString * const reuseIdentifier = @"reuseIdentifier";
 
+static const NSInteger kAccessoryLabelTag = 1;
+
 @interface EDHFontSettingsViewController ()
 
 @property (nonatomic) NSArray *items;
@@ -46,6 +48,12 @@ static NSString * const reuseIdentifier = @"reuseIdentifier";
     [super viewWillAppear:animated];
     
     [self refresh];
+}
+
+- (void)viewDidLayoutSubviews {
+    [super viewDidLayoutSubviews];
+
+    [self updateAllCells];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -87,6 +95,8 @@ static NSString * const reuseIdentifier = @"reuseIdentifier";
     if (indexPath.section == 0) {
         UIViewController *controller = self.items[indexPath.section][indexPath.row][@"controller"];
         if (controller) {
+            UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+            controller.title = cell.textLabel.text;
             [self.navigationController pushViewController:controller animated:YES];
         }
     } else if (indexPath.section == 1) {
@@ -109,13 +119,28 @@ static NSString * const reuseIdentifier = @"reuseIdentifier";
     cell.textLabel.text = self.items[indexPath.section][indexPath.row][@"title"];
 
     if (indexPath.section == 0) {
-        UILabel *accessoryLabel = [[UILabel alloc] init];
+        UILabel *accessoryLabel = (UILabel *)[cell.contentView viewWithTag:kAccessoryLabelTag];
+        
+        if (!accessoryLabel) {
+            accessoryLabel = [[UILabel alloc] init];
+            accessoryLabel.textColor = [UIColor colorWithRed:142.0f/255.0f green:142.0f/255.0f blue:147.0f/255.0f alpha:1.000f]; // #8e8e93
+            accessoryLabel.backgroundColor = [UIColor clearColor];
+            accessoryLabel.tag = kAccessoryLabelTag;
+        }
+
         accessoryLabel.text = self.items[indexPath.section][indexPath.row][@"value"];
-        accessoryLabel.textColor = [UIColor colorWithRed:0.0 green:122.0/255.0 blue:1.0 alpha:1.0]; // #007AFF
         [accessoryLabel sizeToFit];
-        cell.accessoryView = accessoryLabel;
+        
+        CGRect frame = accessoryLabel.frame;
+        frame.origin.y = 12.0f;
+        frame.size.width = CGRectGetWidth(cell.bounds) - 32.0f;
+        accessoryLabel.frame = frame;
+        accessoryLabel.textAlignment = NSTextAlignmentRight;
+        
+        [cell.contentView addSubview:accessoryLabel];
         
         cell.selectionStyle = UITableViewCellSelectionStyleDefault;
+        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         
         cell.textLabel.textColor = [UIColor blackColor];
         cell.textLabel.font = nil;
@@ -124,6 +149,7 @@ static NSString * const reuseIdentifier = @"reuseIdentifier";
         cell.accessoryView = nil;
         
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        cell.accessoryType = UITableViewCellAccessoryNone;
 
         cell.textLabel.textColor = [[EDHFontSelector sharedSelector] textColor];
         cell.textLabel.font = [[EDHFontSelector sharedSelector] font];
@@ -132,6 +158,7 @@ static NSString * const reuseIdentifier = @"reuseIdentifier";
         cell.accessoryView = nil;
 
         cell.selectionStyle = UITableViewCellSelectionStyleDefault;
+        cell.accessoryType = UITableViewCellAccessoryNone;
 
         cell.textLabel.textColor = [UIColor blackColor];
         cell.textLabel.font = nil;
