@@ -50,8 +50,8 @@ static const NSInteger kAccessoryLabelTag = 1;
     [self refresh];
 }
 
-- (void)viewDidLayoutSubviews {
-    [super viewDidLayoutSubviews];
+- (void)viewWillLayoutSubviews {
+    [super viewWillLayoutSubviews];
 
     [self updateAllCells];
 }

@@ -9,7 +9,7 @@
 
 Pod::Spec.new do |s|
   s.name             = "EDHFontSelector"
-  s.version          = "0.2.0"
+  s.version          = "0.2.1"
   s.summary          = "Font settings interface for iOS"
   s.description      = <<-DESC
                        Congigure text style for text editor, developed for Edhita.

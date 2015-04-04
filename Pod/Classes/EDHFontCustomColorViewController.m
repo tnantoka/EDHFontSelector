@@ -41,8 +41,8 @@ static const NSInteger kBlueIndex = 2;
     [self initItems];
 }
 
-- (void)viewDidLayoutSubviews {
-    [super viewDidLayoutSubviews];
+- (void)viewWillLayoutSubviews {
+    [super viewWillLayoutSubviews];
     
     [self updateAllCells];
 }
