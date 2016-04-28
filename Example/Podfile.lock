@@ -1,5 +1,5 @@
 PODS:
-  - EDHFontSelector (0.1.0):
+  - EDHFontSelector (0.2.1):
     - EDHUtility (~> 0.1)
   - EDHUtility (0.1.2)
   - Expecta (0.3.1)
@@ -18,14 +18,14 @@ DEPENDENCIES:
 
 EXTERNAL SOURCES:
   EDHFontSelector:
-    :path: ../
+    :path: "../"
 
 SPEC CHECKSUMS:
-  EDHFontSelector: da14328626710c4c81f39fdd3507a4160077c8a8
-  EDHUtility: 4e6c3994fda9d5b74a7a685c177e520835683ddf
-  Expecta: 03aabd0a89d8dea843baecb19a7fd7466a69a31d
-  Expecta+Snapshots: 30c28e3d8104665ee70e32df1cfc030bb37a8a6c
-  FBSnapshotTestCase: 4159bdf235fdae25aa7d813f1452a4f05ad4f9cd
-  Specta: 9141310f46b1f68b676650ff2854e1ed0b74163a
+  EDHFontSelector: 07c957a4087641e2870976b8edce70b3ee931baa
+  EDHUtility: 9e888c6880f52318e6f018374adb3d15c749f4a5
+  Expecta: a354d4633409dd9fe8c4f5ff5130426adbe31628
+  Expecta+Snapshots: d5efa75539358f4e7210fe05d6e2bf0aae985195
+  FBSnapshotTestCase: cea4d098941d86e023034d6cf0ad95f9de4f3f1a
+  Specta: 15a276a6343867b426d5ed135d5aa4d04123a573
 
-COCOAPODS: 0.34.1
+COCOAPODS: 0.39.0

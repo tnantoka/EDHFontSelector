@@ -102,6 +102,13 @@ static EDHFontSelector *sharedInstance = nil;
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
+- (void)setDefaultFontName:(NSString *)defaultFontName {
+    if (_defaultFontName != defaultFontName) {
+        _defaultFontName = defaultFontName;
+        [self registarDefaults];        
+    }
+}
+
 - (void)reset {
     [[NSUserDefaults standardUserDefaults] removeObjectForKey:kFontNameKey];
     [[NSUserDefaults standardUserDefaults] removeObjectForKey:kFontSizeKey];

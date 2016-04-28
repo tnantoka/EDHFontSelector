@@ -36,6 +36,7 @@ extern NSString * const EDHFontSelectorPodName;
 - (void)setFontSize:(CGFloat)size;
 - (void)setTextColor:(UIColor *)color;
 - (void)setBackgroundColor:(UIColor *)color;
+- (void)setDefaultFontName:(NSString *)defaultFontName;
 
 - (void)reset;
 

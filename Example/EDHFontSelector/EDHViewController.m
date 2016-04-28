@@ -32,6 +32,7 @@
     [self.view addSubview:self.textView];
     
     [EDHFontSelector sharedSelector].colorEabled = YES;
+    [EDHFontSelector sharedSelector].defaultFontName = @"Chalkduster";
 }
 
 - (void)viewWillAppear:(BOOL)animated {
